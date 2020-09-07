@@ -16,8 +16,8 @@ public class TopicosController {
 	private TopicoService topicoService;
 
 	@RequestMapping("/topicos")
-	public List<TopicoDTO> listado() {
-		return topicoService.listado();
+	public List<TopicoDTO> listado(String nombreCurso) {
+		return topicoService.listado(nombreCurso);
 	}
 
 }
