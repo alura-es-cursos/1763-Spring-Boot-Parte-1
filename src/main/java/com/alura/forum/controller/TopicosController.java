@@ -34,6 +34,7 @@ public class TopicosController {
 		Topico topico = topicoService.registrar(topicoForm);
 		
 		URI uri = uriComponentsBuilder.path("/topicos/{id}").buildAndExpand(topico.getId()).toUri();
+		
 		return ResponseEntity.created(uri).body(new TopicoDTO(topico));
 	}
 	
