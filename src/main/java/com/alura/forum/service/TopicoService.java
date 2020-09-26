@@ -39,12 +39,12 @@ public class TopicoService {
 		return TopicoDTO.convertir(resultado);
 	}
 
-	public void registrar(TopicoForm topicoForm) {
+	public Topico registrar(TopicoForm topicoForm) {
 		Optional<Usuario> usuario = usuarioRepository.findById(topicoForm.getIdUsuario());
 		Optional<Curso> curso = cursoRepository.findByNombre(topicoForm.getNombreCurso());
 		
 		Topico topico = topicoForm.convertir(usuario, curso);
 		
-		topicoRepository.save(topico);
+		return topicoRepository.save(topico);
 	}
 }
