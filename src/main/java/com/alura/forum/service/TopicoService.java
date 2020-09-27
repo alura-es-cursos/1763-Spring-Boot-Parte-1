@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alura.forum.controller.dto.DetalleTopicoDTO;
 import com.alura.forum.controller.dto.TopicoDTO;
 import com.alura.forum.controller.form.TopicoForm;
 import com.alura.forum.model.Curso;
@@ -46,5 +47,11 @@ public class TopicoService {
 		Topico topico = topicoForm.convertir(usuario, curso);
 		
 		return topicoRepository.save(topico);
+	}
+
+	public DetalleTopicoDTO detalle(Long id) {
+		Topico topico = topicoRepository.getOne(id);
+		
+		return new DetalleTopicoDTO(topico);
 	}
 }

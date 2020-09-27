@@ -8,12 +8,14 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.alura.forum.controller.dto.DetalleTopicoDTO;
 import com.alura.forum.controller.dto.TopicoDTO;
 import com.alura.forum.controller.form.TopicoForm;
 import com.alura.forum.model.Topico;
@@ -29,6 +31,13 @@ public class TopicosController {
 	@GetMapping
 	public ResponseEntity<List<TopicoDTO>> listado(String nombreCurso) {
 		return ResponseEntity.ok(topicoService.listado(nombreCurso));
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<DetalleTopicoDTO> detalle(@PathVariable Long id) {
+		DetalleTopicoDTO detalle = topicoService.detalle(id);
+		
+		return ResponseEntity.ok(detalle);
 	}
 	
 	@PostMapping
