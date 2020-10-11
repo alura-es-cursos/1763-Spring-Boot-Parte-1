@@ -12,6 +12,7 @@ import com.alura.forum.controller.dto.DetalleTopicoDTO;
 import com.alura.forum.controller.dto.TopicoDTO;
 import com.alura.forum.controller.form.ActualizaTopicoForm;
 import com.alura.forum.controller.form.TopicoForm;
+import com.alura.forum.exception.RecursoNoEncontradoException;
 import com.alura.forum.model.Curso;
 import com.alura.forum.model.Topico;
 import com.alura.forum.model.Usuario;
@@ -53,14 +54,24 @@ public class TopicoService {
 	}
 
 	public DetalleTopicoDTO detalle(Long id) {
-		Topico topico = topicoRepository.getOne(id);
+		Optional<Topico> topico = topicoRepository.findById(id);
 		
-		return new DetalleTopicoDTO(topico);
+		if(!topico.isPresent())  {
+			throw new RecursoNoEncontradoException(String.format("El tópico de id %s no fue encontrado", id));
+		}
+		
+		return new DetalleTopicoDTO(topico.get());
 	}
 
 	@Transactional
 	public Topico actualizar(Long id, ActualizaTopicoForm actualizaTopicoForm) {
-		Topico topico = topicoRepository.getOne(id);
+		Optional<Topico> optTopico = topicoRepository.findById(id);
+		
+		if(!optTopico.isPresent())  {
+			throw new RecursoNoEncontradoException(String.format("El tópico de id %s no fue encontrado", id));
+		}
+		
+		Topico topico = optTopico.get();
 		topico.setTitulo(actualizaTopicoForm.getTitulo());
 		topico.setMensaje(actualizaTopicoForm.getMensaje());
 		
@@ -68,6 +79,12 @@ public class TopicoService {
 	}
 
 	public void borrar(Long id) {
+		Optional<Topico> optTopico = topicoRepository.findById(id);
+		
+		if(!optTopico.isPresent())  {
+			throw new RecursoNoEncontradoException(String.format("El tópico de id %s no fue encontrado", id));
+		}
+		
 		topicoRepository.deleteById(id);
 	}
 	

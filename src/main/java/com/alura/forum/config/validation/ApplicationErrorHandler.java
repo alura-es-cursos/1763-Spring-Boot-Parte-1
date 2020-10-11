@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.alura.forum.controller.validation.FormError;
+import com.alura.forum.exception.RecursoNoEncontradoException;
 
 @RestControllerAdvice
 public class ApplicationErrorHandler {
@@ -37,6 +38,12 @@ public class ApplicationErrorHandler {
 		});
 		
 		return errores;
+	}
+	
+	@ResponseStatus(code = HttpStatus.NOT_FOUND)
+	@ExceptionHandler(RecursoNoEncontradoException.class)
+	public String handleNotFound(RecursoNoEncontradoException exception) {
+		return exception.getMessage();
 	}
 
 }
