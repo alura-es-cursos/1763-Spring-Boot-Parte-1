@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,6 +58,13 @@ public class TopicosController {
 		URI uri = uriComponentsBuilder.path("/topicos/{id}").buildAndExpand(topico.getId()).toUri();
 		
 		return ResponseEntity.created(uri).body(new TopicoDTO(topico));
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity borrar(@PathVariable Long id) {
+		topicoService.borrar(id);
+		
+		return ResponseEntity.ok().build();
 	}
 	
 }

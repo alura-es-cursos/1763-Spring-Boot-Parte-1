@@ -66,5 +66,9 @@ public class TopicoService {
 		
 		return topico;
 	}
+
+	public void borrar(Long id) {
+		topicoRepository.deleteById(id);
+	}
 	
 }
