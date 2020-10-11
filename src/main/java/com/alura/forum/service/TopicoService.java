@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,7 +59,7 @@ public class TopicoService {
 	}
 
 	@Transactional
-	public Topico actualizar(Long id, @Valid ActualizaTopicoForm actualizaTopicoForm) {
+	public Topico actualizar(Long id, ActualizaTopicoForm actualizaTopicoForm) {
 		Topico topico = topicoRepository.getOne(id);
 		topico.setTitulo(actualizaTopicoForm.getTitulo());
 		topico.setMensaje(actualizaTopicoForm.getMensaje());
